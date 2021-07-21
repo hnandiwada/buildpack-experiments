@@ -1,0 +1,20 @@
+[[buildpacks]]
+id = "paketo-buildpacks/watchexec"
+uri = "./watchexec/watchexec.tgz"
+# id = "paketo-buildpacks/go"
+# uri = "https://github.com/paketo-buildpacks/go/releases/download/v0.9.0/go-0.9.0.cnb"
+
+
+[[order]]
+    [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    # id = "paketo-buildpacks/go"
+
+[stack]
+id = "io.buildpacks.stacks.bionic"
+build-image = "paketobuildpacks/build:full-cnb"
+run-image = "paketobuildpacks/run:full-cnb"
+
+[lifecycle]
+version = "0.11.0"
+

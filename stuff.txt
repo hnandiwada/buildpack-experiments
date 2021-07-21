@@ -1,0 +1,25 @@
+the reason there isn't a bin/detect in a lot of these is because of packit: https://paketo.io/docs/howto/create-paketo-buildpack/
+- it uses a Golang detect function - watchexec/watchexec/detect.go
+used `jam pack \
+        --buildpack ./buildpack.toml  \
+        --stack io.buildpacks.stacks.bionic \
+        --offline \
+        --output watchexec.tgz \
+        --version 1.15.3`
+to build watchexec.tgz for watchexec. had to comment out metadata.dependencies.licenses because of error
+`failed to execute: failed to parse buildpack.toml: \
+    json: cannot unmarshal object into Go struct field Config.metadata of type string`
+also, spelled "metadata" correctly
+
+pack build ruby-app --buildpack paketo-buildpacks/bundler --path ./ruby-sample-app/
+works! does not work with ruby buildpack though.
+
+go builder = go-builder
+pack create-builder go-builder --config ./builder.toml
+pack build go-app --builder go-builder --path ./ruby-sample-app/
+fails because the .go file doesn't have any "package", which is okay because the file is empty and doesn't matter
+
+watchexec builder = watchexec-builder
+pack create-builder watchexec-builder --config ./builder.toml
+pack build watchexec-app --builder watchexec-builder --path ./ruby-sample-app/
+
